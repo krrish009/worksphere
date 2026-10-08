@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WorkSphere - Home</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/responsive.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">WorkSphere</div>
+        <ul class="nav-links">
+            <li><a href="home.html" class="active">Home</a></li>
+            <li><a href="jobs.html">Browse Jobs</a></li>
+            <li><a href="tracker.html">My Tracker</a></li>
+            <li><a href="job-post.html">Employer Portal</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Discover Your Next Career Move</h1>
+            <p>Find the best jobs matching your skillset.</p>
+            <div class="search-box">
+                <input type="text" id="hero-search" placeholder="Search job title...">
+                <button class="btn" onclick="executeHeroSearch()">Search</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <h2>Platform Impact</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <div id="stat-total-jobs" class="impact-number">0</div>
+                    <p>Active Openings</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number" style="color: #10b981;">100%</div>
+                    <p>Verified Employers</p>
+                </div>
+                <div class="impact-card">
+                    <div id="stat-total-apps" class="impact-number" style="color: #06b6d4;">0</div>
+                    <p>Applications Tracked</p>
+                </div>
+                <div class="impact-card">
+                    <div class="impact-number" style="color: #f59e0b;">94%</div>
+                    <p>Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>WorkSphere</h3>
+                <p>Your ultimate portal for finding dream remote and onsite tech jobs.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="jobs.html">Browse Jobs</a></li>
+                    <li><a href="tracker.html">Tracker</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 WorkSphere</p>
+        </div>
+    </footer>
+
+    <script src="../JAVASCRIPT/home.js"></script>
+</body>
+</html>

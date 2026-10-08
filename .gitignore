@@ -1,0 +1,15 @@
+# OS metadata files (Mac and Windows)
+.DS_Store
+Thumbs.db
+.localized
+
+# Development environment folders
+.vscode/
+.idea/
+
+# Local server files
+.env
+*.log
+
+# Future proofing (in case you add node modules later)
+node_modules/
