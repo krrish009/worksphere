@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browse Jobs - WorkSphere</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../CSS/responsive.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">WorkSphere</div>
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="jobs.html" class="active">Browse Jobs</a></li>
+            <li><a href="tracker.html">My Tracker</a></li>
+            <li><a href="job-post.html">Employer Portal</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>Available Jobs</h2>
+            <input type="text" id="job-search-filter" class="form-control" placeholder="Filter jobs..." style="width: 250px;" oninput="filterJobListings()">
+        </div>
+
+        <div id="job-listings-container" class="job-grid"></div>
+    </div>
+
+    <script src="../JAVASCRIPT/jobs.js"></script>
+</body>
+</html>
