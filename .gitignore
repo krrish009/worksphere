@@ -12,4 +12,4 @@ Thumbs.db
 *.log
 
 # Future proofing (in case you add node modules later)
-node_modules/
+node_modules
