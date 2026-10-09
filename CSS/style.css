@@ -200,3 +200,32 @@ nav {
 }
 
 
+
+
+.job-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.job-card h3 {
+    font-size: 1.25rem;
+    color: var(--secondary);
+    margin-bottom: 6px;
+}
+
+.company {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.details-row {
+    display: flex;
+    gap: 15px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+
