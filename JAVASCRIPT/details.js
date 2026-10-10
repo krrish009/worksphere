@@ -21,21 +21,65 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <h3 style="margin-bottom: 10px;">Role Description</h3>
         <p style="color: var(--text-light); line-height: 1.6; margin-bottom: 30px;">${job.description}</p>
-        <button class="btn" onclick="submitApplication(${job.id})">Submit Application</button>
+        
+        <hr style="margin: 30px 0; border: 0; border-top: 1px solid #e2e8f0;">
+        
+        <h3 style="margin-bottom: 15px;">Submit Your Application</h3>
+        <form id="apply-form" onsubmit="submitApplicationWithResume(event, ${job.id})">
+            <div class="form-group">
+                <label>Upload Resume (PDF / DOCX)</label>
+                <input type="file" id="applicant-resume" class="form-control" accept=".pdf,.doc,.docx" required>
+            </div>
+            <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Submit Application with Resume</button>
+        </form>
     `;
 });
 
-function submitApplication(id) {
-    let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
-    let job = jobs.find(j => j.id === id);
-    let apps = JSON.parse(localStorage.getItem('applications')) || [];
+function submitApplicationWithResume(event, id) {
+    event.preventDefault();
     
-    if (!apps.some(a => a.id === id)) {
-        apps.push({ ...job, status: 'Under Review', dateApplied: new Date().toLocaleDateString() });
-        localStorage.setItem('applications', JSON.stringify(apps));
-        alert('Application successfully submitted!');
-    } else {
-        alert('You have already applied for this position.');
+    let loggedInSeeker = localStorage.getItem('seekerLoggedInUser');
+    if (!loggedInSeeker) {
+        alert('Please log in as a Job Seeker to submit an application.');
+        window.location.href = 'seeker-login.html';
+        return;
     }
-    window.location.href = 'tracker.html';
+
+    let fileInput = document.getElementById('applicant-resume');
+    let file = fileInput.files[0];
+    
+    if (!file) {
+        alert('Please upload your resume file.');
+        return;
+    }
+
+    // Read the file using FileReader
+    let reader = new FileReader();
+    reader.onload = function(e) {
+        let resumeDataUrl = e.target.result;
+        let resumeName = file.name;
+
+        let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+        let job = jobs.find(j => j.id === id);
+        let apps = JSON.parse(localStorage.getItem('applications')) || [];
+        
+        if (!apps.some(a => a.id === id && a.applicant === loggedInSeeker)) {
+            apps.push({
+                ...job,
+                applicant: loggedInSeeker,
+                resumeName: resumeName,
+                resumeFile: resumeDataUrl,
+                status: 'Under Review',
+                dateApplied: new Date().toLocaleDateString()
+            });
+            localStorage.setItem('applications', JSON.stringify(apps));
+            alert('Application and resume successfully submitted!');
+            window.location.href = 'tracker.html';
+        } else {
+            alert('You have already applied for this position.');
+            window.location.href = 'tracker.html';
+        }
+    };
+    
+    reader.readAsDataURL(file);
 }
