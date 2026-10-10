@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('employerAccounts', JSON.stringify([]));
     }
     
-    // Check if employer is already logged in during this session
     let loggedUser = localStorage.getItem('employerLoggedInUser');
     if (loggedUser) {
         showDashboard(loggedUser);
@@ -70,6 +69,7 @@ function showDashboard(email) {
     document.getElementById('auth-section').style.display = 'none';
     document.getElementById('dashboard-section').style.display = 'block';
     document.getElementById('welcome-msg').innerText = `Welcome, ${email}`;
+    loadEmployerJobListings();
 }
 
 function logoutEmployer() {
@@ -83,8 +83,11 @@ function logoutEmployer() {
 function handleJobPost(event) {
     event.preventDefault();
     
+    let loggedInEmployer = localStorage.getItem('employerLoggedInUser');
+
     let newJob = {
         id: Date.now(),
+        employer: loggedInEmployer,
         title: document.getElementById('post-title').value,
         company: document.getElementById('post-company').value,
         location: document.getElementById('post-location').value,
@@ -97,6 +100,35 @@ function handleJobPost(event) {
     jobs.unshift(newJob);
     localStorage.setItem('jobs', JSON.stringify(jobs));
     
+    document.getElementById('post-job-form').reset();
     alert('Job published successfully!');
-    window.location.href = 'jobs.html';
+    loadEmployerJobListings();
+}
+
+function loadEmployerJobListings() {
+    let container = document.getElementById('employer-jobs-container');
+    let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+    
+    if (jobs.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-light);">No job listings created yet.</p>';
+        return;
+    }
+
+    container.innerHTML = jobs.map(j => `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
+            <div>
+                <strong>${j.title}</strong> (${j.company}) - <span style="color: var(--text-light);">${j.location}</span>
+            </div>
+            <button class="btn" style="background-color: #ef4444; padding: 6px 12px; font-size: 0.85rem;" onclick="deleteJob(${j.id})">Delete</button>
+        </div>
+    `).join('');
+}
+
+function deleteJob(id) {
+    if (confirm('Are you sure you want to delete this job listing?')) {
+        let jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+        jobs = jobs.filter(j => j.id !== id);
+        localStorage.setItem('jobs', JSON.stringify(jobs));
+        loadEmployerJobListings();
+    }
 }
