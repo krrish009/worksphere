@@ -18,42 +18,73 @@
         </ul>
     </nav>
 
-    <div class="container" style="max-width: 700px; flex: 1;">
-        <h2>Post a New Position</h2>
-        <p style="color: var(--text-light); margin-bottom: 25px;">Broadcast your opportunity to top-tier global talent.</p>
-        
-        <form onsubmit="handleJobPost(event)">
-            <div class="form-group">
-                <label>Job Title</label>
-                <input type="text" id="post-title" class="form-control" required placeholder="e.g. Frontend Developer">
+    <div class="container" style="flex: 1;">
+        <!-- Employer Authentication Section -->
+        <div id="auth-section" class="job-card" style="max-width: 500px; margin: 40px auto; padding: 40px;">
+            <h2 id="auth-title" style="color: var(--secondary); margin-bottom: 10px;">Employer Login</h2>
+            <p id="auth-subtitle" style="color: var(--text-light); margin-bottom: 25px;">Please log in to post and manage your company's job listings.</p>
+            
+            <form id="auth-form" onsubmit="handleEmployerAuth(event)">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="auth-email" class="form-control" required placeholder="employer@company.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="auth-password" class="form-control" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn" id="auth-btn" style="width: 100%; margin-top: 10px;">Log In</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-light);">
+                <span id="auth-toggle-text">Don't have an account?</span> 
+                <a href="#" onclick="toggleAuthMode(event)" id="auth-toggle-link" style="color: var(--primary); font-weight: bold; text-decoration: none;">Sign Up</a>
+            </p>
+        </div>
+
+        <!-- Job Posting Form Section (Hidden until logged in) -->
+        <div id="dashboard-section" style="display: none; max-width: 700px; margin: 0 auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div>
+                    <h2 id="welcome-msg">Post a New Position</h2>
+                    <p style="color: var(--text-light);">Broadcast your opportunity to top-tier global talent.</p>
+                </div>
+                <button class="btn" style="background-color: #ef4444; padding: 8px 16px; font-size: 0.85rem;" onclick="logoutEmployer()">Log Out</button>
             </div>
-            <div class="form-group">
-                <label>Company Name</label>
-                <input type="text" id="post-company" class="form-control" required placeholder="e.g. TechCorp">
-            </div>
-            <div class="form-group">
-                <label>Location</label>
-                <input type="text" id="post-location" class="form-control" required placeholder="e.g. Remote">
-            </div>
-            <div class="form-group">
-                <label>Salary Range</label>
-                <input type="text" id="post-salary" class="form-control" required placeholder="e.g. $95k - $120k">
-            </div>
-            <div class="form-group">
-                <label>Employment Type</label>
-                <select id="post-type" class="form-control">
-                    <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Internship">Internship</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Job Description</label>
-                <textarea id="post-desc" class="form-control" rows="4" required placeholder="Describe role requirements..."></textarea>
-            </div>
-            <button type="submit" class="btn" style="width: 100%;">Publish Job Opening</button>
-        </form>
+
+            <form id="post-job-form" onsubmit="handleJobPost(event)">
+                <div class="form-group">
+                    <label>Job Title</label>
+                    <input type="text" id="post-title" class="form-control" required placeholder="e.g. Frontend Developer">
+                </div>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" id="post-company" class="form-control" required placeholder="e.g. TechCorp">
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="post-location" class="form-control" required placeholder="e.g. Remote">
+                </div>
+                <div class="form-group">
+                    <label>Salary Range</label>
+                    <input type="text" id="post-salary" class="form-control" required placeholder="e.g. $95k - $120k">
+                </div>
+                <div class="form-group">
+                    <label>Employment Type</label>
+                    <select id="post-type" class="form-control">
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Job Description</label>
+                    <textarea id="post-desc" class="form-control" rows="4" required placeholder="Describe role requirements..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Publish Job Opening</button>
+            </form>
+        </div>
     </div>
 
     <script src="../JAVASCRIPT/job-post.js"></script>
